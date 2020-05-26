@@ -8,6 +8,6 @@ namespace DBHelper
 {
     public class Class1
     {
-
+        
     }
 }
