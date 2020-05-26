@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBHelper
+namespace DBHelper.Helper
 {
-    public class Class1
+    class AccessHelper
     {
-        
+
     }
 }
