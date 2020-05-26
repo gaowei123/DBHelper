@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="HelperFactory.cs" />
     <Compile Include="Helper\AccessHelper.cs" />
     <Compile Include="Helper\MysqlHelper.cs" />
     <Compile Include="Helper\OracleHelper.cs" />

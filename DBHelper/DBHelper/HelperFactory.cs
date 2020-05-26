@@ -8,19 +8,17 @@ using System.Reflection;
 
 namespace DBHelper
 {
-    public class DataAccess
+    public class HelperFactory
     {
         private static string nameSpace = "DBHelper.Helper";
         private static string dbName = ConfigurationManager.AppSettings["DBName"];
-
         
-
-        public static IHelper CreateSqlHelper()
+        public static IHelper GetHelper()
         {
 
 
             //命名空间.类型名
-            string fullName = nameSpace + "." + dbName + "User";
+            string fullName = nameSpace + "." + dbName + "Helper";
 
 
 
@@ -32,8 +30,6 @@ namespace DBHelper
 
             //类型转换
             IHelper helper = (IHelper)obj;
-
-
 
 
             return helper;
