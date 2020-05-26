@@ -9,8 +9,21 @@ using System.Data.SqlClient;
 
 namespace DBHelper.Helper
 {
-    public  class SqlserverHelper
+    public class SqlserverHelper : IHelper
     {
+        public DataTable GetTable(string strSql)
+        {
+            throw new NotImplementedException();
+        }
 
+        public DataTable GetTable(string strSql, SqlParameter[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataTable GetTable(string strSql, SqlParameter[] parameters, SqlConnection conn)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

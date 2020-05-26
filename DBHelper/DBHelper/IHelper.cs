@@ -19,24 +19,23 @@ namespace DBHelper
 
         DataTable GetTable(string strSql, SqlParameter[] parameters, SqlConnection conn);
 
+        
+        //DataSet GetDataSet(string strSql);
 
 
-        DataSet GetDataSet(string strSql);
+        //DataSet GetDataSet(string strSql, SqlParameter[] parameters);
 
 
-        DataSet GetDataSet(string strSql, SqlParameter[] parameters);
+        //DataSet GetDataSet(string strSql, SqlParameter[] parameters, SqlConnection conn);
 
 
-        DataSet GetDataSet(string strSql, SqlParameter[] parameters, SqlConnection conn);
+        //int ExcuteSQL(string strSql);
 
 
-        int ExcuteSQL(string strSql);
+        //int ExcuteSQL(string strSql, SqlParameter[] parameters);
 
 
-        int ExcuteSQL(string strSql, SqlParameter[] parameters);
-
-
-        int ExcuteSQL(string strSql, SqlParameter[] parameters, SqlConnection conn);
+        //int ExcuteSQL(string strSql, SqlParameter[] parameters, SqlConnection conn);
 
 
         //int ExcuteProc(string strProcName);
