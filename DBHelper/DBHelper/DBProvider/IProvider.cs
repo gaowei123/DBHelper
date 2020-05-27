@@ -12,7 +12,5 @@ namespace DBHelper.DBProvider
         DbConnection CreateConnection();
         DbCommand CreateCommand();
         DbDataAdapter CreateDataAdapter();
-
-        
     }
 }
