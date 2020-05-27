@@ -16,52 +16,221 @@ namespace DBHelper
         private static string strConnection = ConfigurationManager.ConnectionStrings["TaiyoLaser"].ConnectionString;
 
 
-        public Helper()
+        public class TransactionParas
         {
-            
+            public string SQLString { get; set; }
+            public DbParameter[] SQLParameters { get; set; }
         }
-
 
 
         public static DataTable GetTable(string strSql, DbParameter[] parameters)
         {
-
             DbConnection con = provider.CreateConnection();
-            con.ConnectionString = strConnection;
-
-
-
-            DbCommand com = provider.CreateCommand();
-            com.Connection = con;
-            com.CommandText = strSql;
-            com.CommandType = CommandType.Text;
-
-
-
-            foreach (DbParameter para in parameters)
+          
+            try
             {
-                if (para != null)
-                    com.Parameters.Add(para);
+                con.ConnectionString = strConnection;
+
+
+                DbCommand com = provider.CreateCommand();
+                com.Connection = con;
+                com.CommandText = strSql;
+                com.CommandType = CommandType.Text;
+
+
+                if (parameters != null)
+                {
+                    foreach (DbParameter para in parameters)
+                    {
+                        if (para != null)
+                            com.Parameters.Add(para);
+                    }
+                }
+
+
+
+                DbDataAdapter ad = provider.CreateDataAdapter();
+                ad.SelectCommand = com;
+                con.Open();
+
+
+                DataTable dt = new DataTable();
+                ad.Fill(dt);
+
+                return dt;
             }
-        
-
-            
-
-
-            DataSet ds = new DataSet();
-            DbDataAdapter ad = provider.CreateDataAdapter();
-            ad.SelectCommand = com;
-            
-
-            con.Open();
-            ad.Fill(ds);
-            con.Close();
-
-            return ds.Tables[0];
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
      
+        public static DataSet GetDataSet(string strSql, DbParameter[] parameters)
+        {
+            DbConnection con = provider.CreateConnection();
 
+            try
+            {
+                con.ConnectionString = strConnection;
+
+
+                DbCommand com = provider.CreateCommand();
+                com.Connection = con;
+                com.CommandText = strSql;
+                com.CommandType = CommandType.Text;
+
+
+                if (parameters != null)
+                {
+                    foreach (DbParameter para in parameters)
+                    {
+                        if (para != null)
+                            com.Parameters.Add(para);
+                    }
+                }
+
+
+
+                DbDataAdapter ad = provider.CreateDataAdapter();
+                ad.SelectCommand = com;
+                con.Open();
+
+
+                DataSet ds = new DataSet();
+                ad.Fill(ds);
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            
+        }
+        
+
+        public static int ExcuteSQL(string strSql, DbParameter[] pars)
+        {
+           DbConnection con = provider.CreateConnection();
+
+            try
+            {
+                con.ConnectionString = strConnection;
+
+                DbCommand com = provider.CreateCommand();
+                com.Connection = con;
+                com.CommandText = strSql;
+                com.CommandType = CommandType.Text;
+
+                if (pars!= null)
+                {
+                    foreach (DbParameter parameter in pars)
+                    {
+                        com.Parameters.Add(parameter);
+                    }
+                }
+
+                con.Open();
+
+
+                int result = com.ExecuteNonQuery();
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                
+                con.Close();
+            }
+        }
+
+
+
+
+        public static bool SetDataRollBack(List<TransactionParas> SqlParas)
+        {
+            DbConnection con = provider.CreateConnection();
+
+            DbTransaction tran = null;
+
+            bool result = true;
+
+            try
+            {
+                con.ConnectionString = strConnection;
+                tran = con.BeginTransaction();
+
+                
+                DbCommand com = provider.CreateCommand();
+                com.Connection = con;
+                com.Transaction = tran;
+                com.CommandType = CommandType.Text;
+
+                con.Open();
+
+             
+                foreach (TransactionParas item in SqlParas)
+                {
+                    com.CommandText = item.SQLString;
+
+
+                    com.Parameters.Clear();
+                    foreach (DbParameter para in item.SQLParameters)
+                    {
+                        if (para != null)
+                            com.Parameters.Add(para);
+                    }
+
+
+                    int effectRow = com.ExecuteNonQuery();
+                    if (effectRow < 0)
+                    {
+                        tran.Rollback();
+                        result = false;
+                        break;
+                    }
+
+
+                   
+                }
+
+                if (result)
+                {
+                    tran.Commit();
+                }
+
+     
+
+
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw ex;
+            }
+            finally
+            {
+                tran.Dispose();
+                con.Close();
+            }
+        }
 
     }
 }

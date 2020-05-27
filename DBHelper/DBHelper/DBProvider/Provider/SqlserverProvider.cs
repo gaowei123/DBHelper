@@ -26,6 +26,6 @@ namespace DBHelper.DBProvider.Provider
             return new SqlDataAdapter();
         }
 
-
+       
     }
 }

@@ -12,18 +12,26 @@ namespace Test_DBHelper
     {
         static void Main(string[] args)
         {
+            testGetTable();
+            Console.ReadKey();
+        }
+
+
+
+        static void testGetTable()
+        {
             string str = "select * from user_db where 1= 1 and user_id= @userid";
 
-            SqlParameter[] para = {
+            SqlParameter[] parameters = {
                 new SqlParameter("@userid", SqlDbType.VarChar, 50)
             };
 
-            para[0].Value = "LS001";
+            parameters[0].Value = "LS001";
 
 
 
 
-            DataTable dt = DBHelper.Helper.GetTable(str, para);
+            DataTable dt = DBHelper.Helper.GetTable(str, parameters);
 
 
             foreach (DataRow dr in dt.Rows)
@@ -33,9 +41,12 @@ namespace Test_DBHelper
                     Console.WriteLine(dr[i]);
                 }
             }
-
-
-            Console.ReadKey();
         }
+
+
+        
+
+
+
     }
 }
