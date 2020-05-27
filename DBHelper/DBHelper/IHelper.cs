@@ -8,8 +8,10 @@ using System.Data.SqlClient;
 
 namespace DBHelper
 {
-    public interface IHelper
+    public interface IHelper 
     {
+
+      
 
         DataTable GetTable(string strSql);
 
@@ -17,7 +19,7 @@ namespace DBHelper
         DataTable GetTable(string strSql, SqlParameter[] parameters);
 
 
-        DataTable GetTable(string strSql, SqlParameter[] parameters, SqlConnection conn);
+        //DataTable GetTable(string strSql, SqlParameter[] parameters, SqlConnection conn);
 
         
         //DataSet GetDataSet(string strSql);

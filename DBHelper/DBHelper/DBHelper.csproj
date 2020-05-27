@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,15 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HelperFactory.cs" />
-    <Compile Include="Helper\AccessHelper.cs" />
-    <Compile Include="Helper\MysqlHelper.cs" />
-    <Compile Include="Helper\OracleHelper.cs" />
-    <Compile Include="Helper\PostgresqlHelper.cs" />
-    <Compile Include="IHelper.cs" />
+    <Compile Include="DBProvider\IProvider.cs" />
+    <Compile Include="DBProvider\Provider\OracleProvider.cs" />
+    <Compile Include="DBProvider\Provider\SqlserverProvider.cs" />
+    <Compile Include="DBProvider\ProviderFactory.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helper\SqlserverHelper.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
